@@ -7,9 +7,13 @@ export default function App() {
   const [formIsShown, setFormIsShown] = useState(false);
   const [modalIsShown, setModalIsShown] = useState(false);
   const [jobIndex, setJobIndex] = useState({ jobIndex: "" });
-  const [jobs, setJobs] = useState(() =>
-    JSON.parse(window.localStorage.getItem("jobs") || [])
-  );
+  const [jobs, setJobs] = useState(() => {
+    const valueInLocalStorage = window.localStorage.getItem("jobs");
+    if (valueInLocalStorage) {
+      return JSON.parse(valueInLocalStorage);
+    }
+    return [];
+  });
 
   useEffect(() => {
     window.localStorage.setItem("jobs", JSON.stringify(jobs));
